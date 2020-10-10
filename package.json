@@ -1,0 +1,30 @@
+{
+  "name": "slack-bot",
+  "version": "1.0.0",
+  "description": "Slack bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssanchezmarc/slack-bot.git"
+  },
+  "keywords": [
+    "bot",
+    "slack"
+  ],
+  "author": "Sergio Sánchez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ssanchezmarc/slack-bot/issues"
+  },
+  "homepage": "https://github.com/ssanchezmarc/slack-bot#readme",
+  "dependencies": {
+    "@slack/web-api": "^5.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
