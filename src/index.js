@@ -45,11 +45,11 @@ slackEvents.start(port).then(() => {
   console.log(`server listening on port ${port}`);
 });
 
-// To-Do Add dotenv
-// To-Do Update readme including development mode with expose and try to make more robust
-// To-Do Kudos use case - add kudos for a user
-// To-Do Add testing framework
-// To-Do Kudos use case - get kudos of a channel
-// To-Do Support node last version in this specific project
+// @todo Add dotenv
+// @todo Update readme including development mode with expose and try to make more robust
+// @todo Kudos use case - add kudos for a user
+// @todo Add testing framework
+// @todo Kudos use case - get kudos of a channel
+// @todo Support node last version in this specific project
 
 
