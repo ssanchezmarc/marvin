@@ -1,5 +1,8 @@
 // const createSlackEventAdapter = require('@slack/events-api').createSlackEventAdapter;
-const { WebClient } = require('@slack/web-api');
+// const { WebClient } = require('@slack/web-api');
+
+import { WebClient } from '@slack/web-api';
+import { createEventAdapter } from '@slack/events-api';
 
 
 // Retrieve bot token from dotenv file
@@ -24,7 +27,6 @@ const responseMessage = async () => {
 
 
 // Initialize using signing secret from environment variables
-const { createEventAdapter } = require('@slack/events-api');
 const slackEvents = createEventAdapter(signing_secret);
 const port = process.env.PORT || 3033;
 

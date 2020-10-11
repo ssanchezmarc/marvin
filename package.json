@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Slack bot",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "start:dev": "nodemon -r dotenv/config src/index.js dotenv_config_path=config/.env",
