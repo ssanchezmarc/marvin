@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:dev": "nodemon src/index.js",
+    "start:dev": "nodemon -r dotenv/config src/index.js dotenv_config_path=config/.env",
     "test": ""
   },
   "repository": {
@@ -24,7 +24,8 @@
   "homepage": "https://github.com/ssanchezmarc/slack-bot#readme",
   "dependencies": {
     "@slack/events-api": "^2.3.4",
-    "@slack/web-api": "^5.12.0"
+    "@slack/web-api": "^5.12.0",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

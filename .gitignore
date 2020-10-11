@@ -1,1 +1,6 @@
+# Dependencies management
 node_modules
+yarn-error.log
+
+# Secrets
+config/.env

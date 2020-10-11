@@ -1,12 +1,11 @@
 // const createSlackEventAdapter = require('@slack/events-api').createSlackEventAdapter;
 const { WebClient } = require('@slack/web-api');
 
-// Retrieve bot token from dotenv file
-const bot_token = 'xoxb-1420508250786-1420517329170-enpipAbj1iLd4aUMNlyJIvW5';
-// Authorization token
-const auth_token = 'xoxp-1420508250786-1420715563667-1426698799700-cd6cc74d72868780ed9d1e381f7d2d4b' || '';
 
-const verification_token = 'cd3a550f657c304e024d13d9bb5181cf';
+// Retrieve bot token from dotenv file
+const bot_token = process.env.SLACK_BOT_ACCESS_TOKEN;
+const signing_secret = process.env.SLACK_SIGNING_SECRET;
+
 // Verification token for Events Adapter
 // const slackEvents = createSlackEventAdapter(verification_token);
 
@@ -26,7 +25,7 @@ const responseMessage = async () => {
 
 // Initialize using signing secret from environment variables
 const { createEventAdapter } = require('@slack/events-api');
-const slackEvents = createEventAdapter('cd3a550f657c304e024d13d9bb5181cf');
+const slackEvents = createEventAdapter(signing_secret);
 const port = process.env.PORT || 3033;
 
 // Attach listeners to events by Slack Event "type". See: https://api.slack.com/events/message.im
