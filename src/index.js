@@ -1,33 +1,21 @@
-import { WebClient } from '@slack/web-api';
 import { createEventAdapter } from '@slack/events-api';
 
 import KudosGiver from "./Kudos/useCases/give/KudosGiver.js";
 import KudosGiveRequest from "./Kudos/useCases/give/KudosGiveRequest.js";
 import InMemoryKudosRepository from "./Kudos/infrastucture/InMemoryKudosRepository.js";
 
-import Message from "./Message.js";
+import Message from "./apps/SlackBot/Message.js";
+import Bot from "./apps/SlackBot/Bot.js";
 
 // Retrieve bot token from dotenv file
-const bot_token = process.env.SLACK_BOT_ACCESS_TOKEN;
 const signing_secret = process.env.SLACK_SIGNING_SECRET;
-
-// Slack web client
-const bot = new WebClient(bot_token);
-
-// Post message to Slack
-const responseMessage = async (message) => {
-  const res = await bot.chat.postMessage({ channel: '#general', text: message });
-
-  // `res` contains information about the posted message
-  console.log('Message sent: ', res.ts);
-};
-
 
 // Initialize using signing secret from environment variables
 const slackEvents = createEventAdapter(signing_secret);
 const port = process.env.PORT || 3033;
 
 const kudosRepository = new InMemoryKudosRepository();
+const bot = new Bot();
 
 slackEvents.on('app_mention', (event) => {
   console.log(event);
@@ -42,11 +30,9 @@ slackEvents.on('app_mention', (event) => {
     const kudosGiver = new KudosGiver({ kudosRepository });
     const response = kudosGiver.run(new KudosGiveRequest({ recipient: message.mainMention() }));
 
-    responseMessage(response.reply());
-
-
+    bot.response({ message: response.reply() });
   } catch (error) {
-    responseMessage("I know what you mean... or not");
+    bot.response({ message: "I know what you mean... or not" });
   }
 });
 
