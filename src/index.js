@@ -5,6 +5,8 @@ import KudosGiver from "./Kudos/useCases/give/KudosGiver.js";
 import KudosGiveRequest from "./Kudos/useCases/give/KudosGiveRequest.js";
 import InMemoryKudosRepository from "./Kudos/infrastucture/InMemoryKudosRepository.js";
 
+import Message from "./Message.js";
+
 // Retrieve bot token from dotenv file
 const bot_token = process.env.SLACK_BOT_ACCESS_TOKEN;
 const signing_secret = process.env.SLACK_SIGNING_SECRET;
@@ -14,7 +16,6 @@ const bot = new WebClient(bot_token);
 
 // Post message to Slack
 const responseMessage = async (message) => {
-  // See: https://api.slack.com/methods/chat.postMessage
   const res = await bot.chat.postMessage({ channel: '#general', text: message });
 
   // `res` contains information about the posted message
@@ -26,39 +27,11 @@ const responseMessage = async (message) => {
 const slackEvents = createEventAdapter(signing_secret);
 const port = process.env.PORT || 3033;
 
-class Message {
-  _text;
-  _mentions;
-
-  constructor({ text }) {
-    this._text = text;
-  }
-
-  mainMention() {
-    const mentions = this._mentions || this._text.match(/<@.+?>/g);
-
-    if (!mentions || !mentions[1]) {
-      // @todo define custom exceptions
-      throw 'No metions in the text';
-    }
-
-    return mentions[1];
-  }
-
-  text() {
-    return this._text;
-  }
-
-  isForKudos() {
-    return /KUDOS.+<@.+?>/.test(this._text.toUpperCase());
-  }
-}
-
 const kudosRepository = new InMemoryKudosRepository();
 
 slackEvents.on('app_mention', (event) => {
   console.log(event);
-  const message = new Message({ text: event.text });
+  const message = new Message({ message: event.text });
 
   try {
     if (!message.isForKudos()) {
