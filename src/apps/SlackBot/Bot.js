@@ -1,23 +1,20 @@
 import { WebClient } from "@slack/web-api";
 import { createEventAdapter } from "@slack/events-api";
 
+const _TOKEN = process.env.SLACK_BOT_ACCESS_TOKEN;
+const _SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET;
+const _PORT = process.env.PORT;
+
 export default class Bot {
-  static _TOKEN = process.env.SLACK_BOT_ACCESS_TOKEN;
-  static _SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET;
-  static _PORT = process.env.PORT;
-
-  _client;
-  _events;
-
   constructor() {
-    this._client = new WebClient(Bot._TOKEN);
-    this._events = createEventAdapter(Bot._SIGNING_SECRET);
+    this._client = new WebClient(_TOKEN);
+    this._events = createEventAdapter(_SIGNING_SECRET);
   }
 
   async start() {
-    await this._events.start(Bot._PORT); // Listening on path '/slack/events' by default
+    await this._events.start(_PORT); // Listening on path '/slack/events' by default
 
-    console.log(`Bot: listening on port ${Bot._PORT}`);
+    console.log(`Bot: listening on port ${_PORT}`);
   }
 
   async response({ message, channel = '#general' }) {

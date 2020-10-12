@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "start:dev": "nodemon -r dotenv/config src/index.js dotenv_config_path=config/.env",
+    "start:dev": "nodemon --exec babel-node -r dotenv/config src/index.js dotenv_config_path=config/.env",
     "test": "jest"
   },
   "repository": {
@@ -29,6 +29,8 @@
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.11.5",
     "babel-jest": "^26.5.2",
     "jest": "^26.5.3",
