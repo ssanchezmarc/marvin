@@ -8,18 +8,22 @@ import Bot from "./apps/SlackBot/Bot.js";
 const kudosRepository = new InMemoryKudosRepository();
 const bot = new Bot();
 
+function executeUseCase({ message }) {
+  if (message.isForKudos()) {
+    const useCase = new KudosGiver({ kudosRepository });
+    return useCase.run(new KudosGiveRequest({ recipient: message.mainMention() }));
+  }
+
+  // @todo define custom exceptions
+  throw 'Message does not match any use cases';
+}
+
 bot.on({ event: 'app_mention', action: (event) => {
   console.log(event);
   const message = new Message({ message: event.text });
 
   try {
-    if (!message.isForKudos()) {
-      // @todo define custom exceptions
-      throw 'Message does not match the kudos giver use cases';
-    }
-
-    const kudosGiver = new KudosGiver({ kudosRepository });
-    const response = kudosGiver.run(new KudosGiveRequest({ recipient: message.mainMention() }));
+    const response =  executeUseCase({ message });
 
     bot.response({ message: response.reply() });
   } catch (error) {
