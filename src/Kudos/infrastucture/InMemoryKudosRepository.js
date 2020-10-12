@@ -1,6 +1,4 @@
 export default class InMemoryKudosRepository {
-  _kudos;
-
   constructor({ kudos = [] } = {}) {
     this._kudos = kudos;
   }

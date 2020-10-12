@@ -1,6 +1,4 @@
 export default class KudosGiveResponse {
-  _reply;
-
   constructor({ reply }) {
     this._reply = reply;
   }

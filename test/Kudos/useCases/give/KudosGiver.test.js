@@ -1,5 +1,6 @@
 import InMemoryKudosRepository from "../../../../src/Kudos/infrastucture/InMemoryKudosRepository";
 import KudosGiveRequest from "../../../../src/Kudos/useCases/give/KudosGiveRequest";
+import KudosGiver from "../../../../src/Kudos/useCases/give/KudosGiver";
 
 describe('KudosGiver', () => {
   test('should increment in one the number of kudos of a recipient', () => {
