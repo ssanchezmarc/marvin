@@ -4,6 +4,7 @@ import { createEventAdapter } from "@slack/events-api";
 export default class Bot {
   static _TOKEN = process.env.SLACK_BOT_ACCESS_TOKEN;
   static _SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET;
+  static _PORT = process.env.PORT;
 
   _client;
   _events;
@@ -14,11 +15,9 @@ export default class Bot {
   }
 
   async start() {
-    const port = process.env.PORT;
+    await this._events.start(Bot._PORT); // Listening on path '/slack/events' by default
 
-    await this._events.start(port); // Listening on path '/slack/events' by default
-
-    console.log(`Bot: listening on port ${port}`);
+    console.log(`Bot: listening on port ${Bot._PORT}`);
   }
 
   async response({ message, channel = '#general' }) {
@@ -27,7 +26,7 @@ export default class Bot {
     console.log(`Bot: message ${response.ts} sent`);
   };
 
-  async on({ event, action }) {
+  on({ event, action }) {
     this._events.on(event, action);
 
     console.log(`Bot: added action on ${event}`);
