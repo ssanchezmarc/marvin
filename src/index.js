@@ -1,5 +1,3 @@
-import { createEventAdapter } from '@slack/events-api';
-
 import KudosGiver from "./Kudos/useCases/give/KudosGiver.js";
 import KudosGiveRequest from "./Kudos/useCases/give/KudosGiveRequest.js";
 import InMemoryKudosRepository from "./Kudos/infrastucture/InMemoryKudosRepository.js";
@@ -7,17 +5,10 @@ import InMemoryKudosRepository from "./Kudos/infrastucture/InMemoryKudosReposito
 import Message from "./apps/SlackBot/Message.js";
 import Bot from "./apps/SlackBot/Bot.js";
 
-// Retrieve bot token from dotenv file
-const signing_secret = process.env.SLACK_SIGNING_SECRET;
-
-// Initialize using signing secret from environment variables
-const slackEvents = createEventAdapter(signing_secret);
-const port = process.env.PORT || 3033;
-
 const kudosRepository = new InMemoryKudosRepository();
 const bot = new Bot();
 
-slackEvents.on('app_mention', (event) => {
+bot.on({ event: 'app_mention', action: (event) => {
   console.log(event);
   const message = new Message({ message: event.text });
 
@@ -34,16 +25,11 @@ slackEvents.on('app_mention', (event) => {
   } catch (error) {
     bot.response({ message: "I know what you mean... or not" });
   }
-});
+}});
+bot.on({ event:'error', action: console.error });
 
-// Handle errors (see `errorCodes` export)
-slackEvents.on('error', console.error);
+bot.start();
 
-// Start a basic HTTP server
-slackEvents.start(port).then(() => {
-  // Listening on path '/slack/events' by default
-  console.log(`server listening on port ${port}`);
-});
 
 // @todo Update readme including development mode with expose and try to make more robust
 // @todo Kudos use case - add kudos for a user
