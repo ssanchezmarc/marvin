@@ -1,17 +1,13 @@
-// const createSlackEventAdapter = require('@slack/events-api').createSlackEventAdapter;
-// const { WebClient } = require('@slack/web-api');
-
 import { WebClient } from '@slack/web-api';
 import { createEventAdapter } from '@slack/events-api';
 
+import KudosGiver from "./Kudos/useCases/give/KudosGiver.js";
+import KudosGiveRequest from "./Kudos/useCases/give/KudosGiveRequest.js";
+import InMemoryKudosRepository from "./Kudos/infrastucture/InMemoryKudosRepository.js";
 
 // Retrieve bot token from dotenv file
 const bot_token = process.env.SLACK_BOT_ACCESS_TOKEN;
 const signing_secret = process.env.SLACK_SIGNING_SECRET;
-
-// Verification token for Events Adapter
-// const slackEvents = createSlackEventAdapter(verification_token);
-
 
 // Slack web client
 const bot = new WebClient(bot_token);
@@ -29,12 +25,6 @@ const responseMessage = async (message) => {
 // Initialize using signing secret from environment variables
 const slackEvents = createEventAdapter(signing_secret);
 const port = process.env.PORT || 3033;
-
-// Attach listeners to events by Slack Event "type". See: https://api.slack.com/events/message.im
-
-
-
-
 
 class Message {
   _text;
@@ -64,41 +54,24 @@ class Message {
   }
 }
 
-let inMemoryMentions = [];
-
-class KudosGiver {
-  static fromMessage({ message }) {
-    if (message.isForKudos()) {
-      return new KudosGiver({ targetMember: message.mainMention() });
-    }
-    // @todo define custom exceptions
-    throw 'Message does not match the kudos giver use cases';
-  }
-
-  constructor({ targetMember }) {
-    this._targetMember = targetMember;
-  }
-
-  run() {
-    if (inMemoryMentions[this._targetMember]) {
-      inMemoryMentions[this._targetMember] = inMemoryMentions[this._targetMember] + 1;
-    } else {
-      inMemoryMentions[this._targetMember] = 1;
-    }
-  }
-}
+const kudosRepository = new InMemoryKudosRepository();
 
 slackEvents.on('app_mention', (event) => {
   console.log(event);
   const message = new Message({ text: event.text });
 
   try {
-    const kudosGiver = KudosGiver.fromMessage({ message });
+    if (!message.isForKudos()) {
+      // @todo define custom exceptions
+      throw 'Message does not match the kudos giver use cases';
+    }
 
-    kudosGiver.run();
+    const kudosGiver = new KudosGiver({ kudosRepository });
+    const response = kudosGiver.run(new KudosGiveRequest({ recipient: message.mainMention() }));
 
-    const mainMention = message.mainMention();
-    responseMessage(`Congrats ${mainMention} :muscle:. You have already ${inMemoryMentions[mainMention]} kudos`);
+    responseMessage(response.reply());
+
+
   } catch (error) {
     responseMessage("I know what you mean... or not");
   }
