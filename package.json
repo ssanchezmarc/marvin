@@ -1,7 +1,7 @@
 {
-  "name": "slack-bot",
+  "name": "marvin",
   "version": "1.0.0",
-  "description": "Slack bot",
+  "description": "Bot assistant for team daily work and methodology",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -14,10 +14,9 @@
     "url": "git+https://github.com/ssanchezmarc/slack-bot.git"
   },
   "keywords": [
-    "bot",
-    "slack"
+    "bot"
   ],
-  "author": "Sergio Sánchez",
+  "author": "Sergio Sánchez & Zuri Pabón",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ssanchezmarc/slack-bot/issues"
