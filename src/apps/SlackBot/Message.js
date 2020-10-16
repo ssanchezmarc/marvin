@@ -6,7 +6,7 @@ export default class Message {
 
   subject() {
     if (!this._mentions[0]) {
-      // @todo define custom exceptions
+      // @todo define custom exceptions object for now subject mention
       throw 'No subject mention in the message';
     }
 
@@ -15,7 +15,7 @@ export default class Message {
 
   mentions() {
     if (!this._mentions[1]) {
-      // @todo define custom exceptions
+      // @todo define custom exceptions object for additional mentions
       throw 'Any mentions a part of the subject in the message';
     }
 
@@ -24,7 +24,7 @@ export default class Message {
 
   mainMention() {
     if (!this._mentions[1]) {
-      // @todo define custom exceptions
+      // @todo define custom exceptions object for main mention
       throw 'Any mentions a part of the subject in the message';
     }
 

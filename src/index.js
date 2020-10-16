@@ -14,7 +14,7 @@ function executeUseCase({ message }) {
     return useCase.run(new KudosGiveRequest({ recipient: message.mainMention() }));
   }
 
-  // @todo define custom exceptions
+  // @todo define custom exceptions object for message does not match any use case
   throw 'Message does not match any use cases';
 }
 
@@ -33,8 +33,3 @@ bot.on({ event: 'app_mention', action: (event) => {
 bot.on({ event:'error', action: console.error });
 
 bot.start();
-
-
-// @todo Update readme including development mode with expose and try to make more robust
-// @todo Kudos use case - add kudos for a user
-// @todo Kudos use case - get kudos of a channel
