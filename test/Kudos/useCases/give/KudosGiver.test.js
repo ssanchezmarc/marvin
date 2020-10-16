@@ -1,4 +1,4 @@
-import InMemoryKudosRepository from "../../../../src/Kudos/infrastucture/InMemoryKudosRepository";
+import InMemoryKudosRepository from "../../../../src/Kudos/infrastructure/InMemoryKudosRepository";
 import KudosGiveRequest from "../../../../src/Kudos/useCases/give/KudosGiveRequest";
 import KudosGiver from "../../../../src/Kudos/useCases/give/KudosGiver";
 

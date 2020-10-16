@@ -1,9 +1,9 @@
-import KudosGiver from "./Kudos/useCases/give/KudosGiver.js";
-import KudosGiveRequest from "./Kudos/useCases/give/KudosGiveRequest.js";
-import InMemoryKudosRepository from "./Kudos/infrastucture/InMemoryKudosRepository.js";
+import KudosGiver from "../../src/Kudos/useCases/give/KudosGiver.js";
+import KudosGiveRequest from "../../src/Kudos/useCases/give/KudosGiveRequest.js";
+import InMemoryKudosRepository from "../../src/Kudos/infrastructure/InMemoryKudosRepository.js";
 
-import Message from "./apps/SlackBot/Message.js";
-import Bot from "./apps/SlackBot/Bot.js";
+import Message from "./src/Message.js";
+import Bot from "./src/Bot.js";
 
 const kudosRepository = new InMemoryKudosRepository();
 const bot = new Bot();

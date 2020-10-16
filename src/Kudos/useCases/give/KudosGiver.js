@@ -1,4 +1,4 @@
-import Kudos from "../../domain/Kudos.js";
+import Kudos from "../../models/Kudos.js";
 
 import KudosGiveResponse from "./KudosGiveResponse.js";
 

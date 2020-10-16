@@ -2,11 +2,11 @@
   "name": "marvin",
   "version": "1.0.0",
   "description": "Bot assistant for team daily work and methodology",
-  "main": "src/index.js",
+  "main": "apps/SlackBot/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "start:dev": "nodemon --exec babel-node -r dotenv/config src/index.js dotenv_config_path=config/.env",
+    "start": "node apps/SlackBot/index.js",
+    "start:dev": "nodemon --exec babel-node -r dotenv/config apps/SlackBot/index.js dotenv_config_path=config/.env",
     "test": "jest"
   },
   "repository": {
