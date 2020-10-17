@@ -4,35 +4,13 @@ export default class Message {
     this._mentions = message.match(/<@.+?>/g) || [];
   }
 
-  subject() {
+  mention() {
     if (!this._mentions[0]) {
-      // @todo define custom exceptions object for now subject mention
-      throw 'No subject mention in the message';
+      // @todo define custom exceptions object for main mention
+      throw 'Any mentions in the message';
     }
 
     return this._mentions[0];
-  }
-
-  mentions() {
-    if (!this._mentions[1]) {
-      // @todo define custom exceptions object for additional mentions
-      throw 'Any mentions a part of the subject in the message';
-    }
-
-    return [...this._mentions].shift();
-  }
-
-  mainMention() {
-    if (!this._mentions[1]) {
-      // @todo define custom exceptions object for main mention
-      throw 'Any mentions a part of the subject in the message';
-    }
-
-    return this._mentions[1];
-  }
-
-  message() {
-    return this._message;
   }
 
   isForKudos() {
