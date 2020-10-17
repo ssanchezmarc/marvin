@@ -1,6 +1,6 @@
 import Message from "./src/Message.js";
 import Bot from "./src/Bot.js";
-import dispatch from "./src/controllers/dispatcher";
+import dispatchAction from "./src/controllers/actionDispatcher";
 
 const bot = new Bot();
 
@@ -8,7 +8,7 @@ bot.on({ event: 'app_mention', action: (event) => {
   const message = new Message({ message: event.text.substr(event.text.indexOf(' ') + 1) });
 
   try {
-    const response = dispatch({ message });
+    const response = dispatchAction({ message });
 
     bot.response({ message: response.reply() });
   } catch (error) {

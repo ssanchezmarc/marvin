@@ -1,6 +1,6 @@
 import GiveKudosController from "./Kudos/GiveKudosController";
 
-export default function dispatch({ message }) {
+export default function dispatchAction({ message }) {
   if (message.isForKudos()) {
     return new GiveKudosController().run({ message });
   }
