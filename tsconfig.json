@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "outDir": "./build",
+    "noImplicitReturns": true
+  },
+  "include": [
+    "src/**/**.ts",
+    "tests/**/**.ts"
+  ],
+  "exclude": ["node_modules"]
+}
