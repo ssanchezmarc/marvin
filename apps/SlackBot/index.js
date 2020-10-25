@@ -5,7 +5,7 @@ import dispatchAction from "./src/controllers/actionDispatcher";
 const bot = new Bot();
 
 bot.on({ event: 'app_mention', action: (event) => {
-  const message = new Message({ message: event.text.substr(event.text.indexOf(' ') + 1) });
+  const message = new Message({ message: event.text.substr(event.text.indexOf('>') + 1) });
 
   try {
     const response = dispatchAction({ message });

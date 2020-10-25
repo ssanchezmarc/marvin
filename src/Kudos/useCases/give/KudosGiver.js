@@ -1,4 +1,4 @@
-import Kudos from "../../models/Kudos.js";
+import Kudos from "../../models/Kudos";
 
 import KudosGiveResponse from "./KudosGiveResponse.js";
 
@@ -11,6 +11,7 @@ export default class KudosGiver {
     const recipient = kudosGiveRequest.recipient();
 
     const recipientKudos = this._repository.search({ recipient }) || new Kudos({ recipient });
+
     recipientKudos.giveOne();
 
     this._repository.save(recipientKudos);
