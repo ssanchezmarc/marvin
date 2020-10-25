@@ -3,8 +3,10 @@ import KudosGiveRequest from "../../../../../src/Kudos/useCases/give/KudosGiveRe
 
 import InMemoryKudosRepository from "../../../../../src/Kudos/infrastructure/InMemoryKudosRepository";
 
+const repositoryImplementation = new InMemoryKudosRepository();
+
 export default class GiveKudosController {
-  constructor({ kudosRepository = new InMemoryKudosRepository() } = {}) {
+  constructor({ kudosRepository = repositoryImplementation } = {}) {
     this._kudosRepository = kudosRepository;
   }
 
