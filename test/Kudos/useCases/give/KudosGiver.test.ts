@@ -11,6 +11,6 @@ describe('KudosGiver', () => {
 
     subject.run(new KudosGiveRequest({ recipient }));
 
-    expect(kudosRepository.search({ recipient }).quantity()).toBe(1);
+    expect(kudosRepository.search({ recipient })?.quantity()).toBe(1);
   });
 });

@@ -1,10 +1,8 @@
-
-
 export default class Kudos {
   _recipient: string;
   _quantity: number;
 
-  constructor({ recipient, quantity = 0 }: { recipient: string, quantity: number}) {
+  constructor({ recipient, quantity = 0 }: { recipient: string, quantity?: number}) {
     this._recipient = recipient;
     this._quantity = quantity;
   }

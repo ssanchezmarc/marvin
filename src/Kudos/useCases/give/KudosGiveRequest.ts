@@ -1,5 +1,7 @@
 export default class KudosGiveRequest {
-  constructor({ recipient }) {
+  _recipient: string;
+
+  constructor({ recipient }: { recipient: string }) {
     this._recipient = recipient;
   }
 
