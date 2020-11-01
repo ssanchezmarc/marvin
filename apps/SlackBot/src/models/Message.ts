@@ -1,4 +1,7 @@
 export default class Message {
+  _message: string;
+  _mentions: Array<string>;
+
   constructor({ message = '' }) {
     this._message = message;
     this._mentions = message.match(/<@.+?>/g) || [];
