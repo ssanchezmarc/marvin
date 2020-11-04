@@ -1,5 +1,7 @@
 export default class KudosGiveResponse {
-  constructor({ reply }) {
+  _reply: string;
+
+  constructor({ reply }: { reply: string }) {
     this._reply = reply;
   }
 

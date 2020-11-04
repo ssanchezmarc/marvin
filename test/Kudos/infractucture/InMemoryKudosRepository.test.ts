@@ -1,4 +1,4 @@
-import InMemoryKudosRepository from "../../../src/Kudos/infrastructure/InMemoryKudosRepository.js";
+import InMemoryKudosRepository from "../../../src/Kudos/infrastructure/InMemoryKudosRepository";
 
 describe('InMemoryKudosRepository', () => {
   test('bla bla bla', () => {

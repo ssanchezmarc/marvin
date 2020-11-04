@@ -1,13 +1,17 @@
 import Kudos from "../../models/Kudos";
 
-import KudosGiveResponse from "./KudosGiveResponse.js";
+import KudosGiveResponse from "./KudosGiveResponse";
+import KudosRepository from "../../models/KudosRepository";
+import KudosGiveRequest from "./KudosGiveRequest";
 
 export default class KudosGiver {
-  constructor ({ kudosRepository }) {
+  _repository: KudosRepository;
+
+  constructor ({ kudosRepository }: { kudosRepository: KudosRepository }) {
     this._repository = kudosRepository;
   }
 
-  run(kudosGiveRequest) {
+  run(kudosGiveRequest: KudosGiveRequest) {
     const recipient = kudosGiveRequest.recipient();
 
     const recipientKudos = this._repository.search({ recipient }) || new Kudos({ recipient });
