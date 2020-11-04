@@ -20,7 +20,7 @@ export default class SlackBot implements Bot {
     this._client = new WebClient(_TOKEN);
     this._events = createEventAdapter(_SIGNING_SECRET);
 
-    this.on({ event: 'app_mention', action: this.onAppMention });
+    this.on({ event: 'app_mention', action: this.onAppMention.bind(this) });
     this.on({ event:'error', action: this.onError });
   }
 
