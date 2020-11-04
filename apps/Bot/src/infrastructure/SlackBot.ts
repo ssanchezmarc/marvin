@@ -1,6 +1,7 @@
 import { WebClient } from '@slack/web-api';
 import { createEventAdapter } from '@slack/events-api';
 import SlackEventAdapter from '@slack/events-api/dist/adapter';
+import { EventEmitter } from 'events';
 
 import dispatchAction from '../controllers/actionDispatcher';
 
@@ -23,17 +24,17 @@ export default class SlackBot implements Bot {
     this.on({ event:'error', action: this.onError });
   }
 
-  onAppMention(event) {
+  onAppMention(event: { text: string }) {
     const message = new Message({ message: event.text.substr(event.text.indexOf('>') + 1) });
 
     this.processMessage({ message });
   }
 
-  onError(event) {
+  onError(event: { text: string }) {
     console.error(event);
   }
 
-  processMessage({ message }) {
+  processMessage({ message }: { message: Message }) {
     try {
       const response = dispatchAction({ message });
 
@@ -45,18 +46,20 @@ export default class SlackBot implements Bot {
   }
 
   start() {
+    // @ts-ignore
     this._events.start(_PORT); // Listening on path '/slack/events' by default
 
     console.log(`Bot: listening on port ${_PORT}`);
   }
 
-  async response({ message, channel = '#general' }) {
+  async response({ message, channel = '#general' }: { message: string, channel?: string }) {
     const response = await this._client.chat.postMessage({ channel, text: message });
 
     console.log(`Bot: message ${response.ts} sent`);
   };
 
-  on({ event, action }) {
+  on({ event, action }: { event: string, action: (event: { text: string }) => void }) {
+    // @ts-ignore
     this._events.on(event, action);
 
     console.log(`Bot: added action on ${event}`);
