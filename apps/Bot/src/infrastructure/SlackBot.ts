@@ -1,10 +1,8 @@
 import { WebClient } from '@slack/web-api';
 import { createEventAdapter } from '@slack/events-api';
 import SlackEventAdapter from '@slack/events-api/dist/adapter';
-import { EventEmitter } from 'events';
 
 import dispatchAction from '../controllers/actionDispatcher';
-
 import Bot from '../models/Bot';
 import Message from '../models/Message';
 
