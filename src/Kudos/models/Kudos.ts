@@ -1,10 +1,12 @@
+import KudosType from "./KudosType";
+
 export default class Kudos {
   _recipient: string;
-  _quantity: number;
+  _quantity: Map<KudosType, number>;
 
-  constructor({ recipient, quantity = 0 }: { recipient: string, quantity?: number}) {
+  constructor({ recipient }: { recipient: string }) {
     this._recipient = recipient;
-    this._quantity = quantity;
+    this._quantity = new Map();
   }
 
   recipient(): string {
@@ -12,10 +14,12 @@ export default class Kudos {
   }
 
   quantity() {
-    return this._quantity;
+    return Array.from(this._quantity.values()).reduce((total, currentValue) => total + currentValue);
   }
 
-  giveOne() {
-    this._quantity++;
+  giveOne({ type = KudosType.Undefined }: { type: KudosType }) {
+    const currentKudosForType = this._quantity.get(type) || 0;
+
+    this._quantity.set(type, currentKudosForType + 1);
   }
 }
